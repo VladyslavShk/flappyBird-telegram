@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flappy Birds Online</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="gameContainer">
+      <div id="overlay" width="400" height="700"></div>
+
+      <div id="menu">
+        <button class="button" id="start-btn">Start</button>
+        <button class="button" id="startMlt-btn">Start Multiplayer</button>
+        <button class="button" id="topPlayers-btn">Top Players</button>
+        <button class="button" id="skins-btn">Skins</button>
+      </div>
+
+      <div id="menu_end">
+        <button class="button" id="backToMenu-btn">Back to Menu</button>
+        <button class="button" id="restart-btn">Retry</button>
+      </div>
+      <div id="hud">
+        <div id="hud-score"></div>
+      </div>
+
+      <canvas id="gameCanvas" width="400" height="700"></canvas>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

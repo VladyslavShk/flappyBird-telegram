@@ -1,0 +1,87 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #70c5ce; /* sky color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@font-face {
+  font-family: "FB_Regular"; /* 👈 you choose this name */
+  src: url("assets/fonts/FB_Regular.ttf") format("truetype");
+}
+/* game container centers canvas and overlays together */
+#gameContainer {
+  position: relative;
+  width: 450px; /* same as canvas width */
+  height: 700px; /* same as canvas height */
+}
+
+/* canvas fits the container */
+#gameCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* width: 450px; */
+  /* height: 700px; */
+  z-index: 5;
+  image-rendering: pixelated;
+}
+
+/* overlays sit exactly on top of the canvas */
+#menu,
+#menu_end,
+#overlay,
+#ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+/* style overlay background */
+#menu {
+  background: rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+#menu_end {
+  background: rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+#hud {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#hud-score {
+  font-family: FB_Regular;
+  color: yellow;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 50px;
+  z-index: 30;
+}
+#overlay {
+  background: rgba(0, 0, 0, 0.6);
+  display: none; /* hidden until Game Over */
+}
+
+/* optional button styles */
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  background: #fdd835;
+  cursor: pointer;
+}
