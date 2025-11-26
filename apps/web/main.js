@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     game.gameReady = true;
   };
 
+  menu.onMultiplayerFindRoomCallback = () => {};
+
   menu.onRestartCallback = (startNewGame) => {
     game.restart(startNewGame);
   };
