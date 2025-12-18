@@ -1,25 +1,25 @@
 export const GameSockets = (function () {
   let socket = null;
   let searchRoomCb = null;
+  let onGotConnection = null;
+  let roomOnUpdateClb = null;
+  function setConnection(serverUrl, name, clb, roomOnClb) {
+    socket = io(serverUrl, {
+      auth: {
+        userName: name,
+      },
+    });
 
-  function setConnection(serverUrl) {
-    socket = io(serverUrl);
-  }
+    roomOnUpdateClb = roomOnClb;
 
-  function findRoom(serverUrl) {
-    socket.on("find-room", (room) => {
-      if (searchRoomCb) searchRoomCb(room);
+    socket.on("connect", () => {
+      clb(socket);
+    });
+
+    socket.on("findRoom", (roomData) => {
+      roomOnUpdateClb(roomData);
     });
   }
-  function onSearchRoomUpdate(cb) {
-    searchRoomCb = cb;
-  }
 
-  function disconnectRoomSearch() {
-    if (!socket) return;
-
-    socket.off("find-room");
-  }
-
-  return { findRoom, disconnectRoomSearch };
+  return { setConnection };
 })();

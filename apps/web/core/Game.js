@@ -6,14 +6,15 @@ import { Renderer } from "./Renderer.js";
 const SKIN_PATH = "assets/img/bird.png";
 const BACKGROUND_PATH = "assets/img/background.jpg";
 export class Game {
-  constructor(ctx, socket) {
+  constructor(ctx, roomState) {
     this.ctx = ctx;
 
     this.bg = new Image();
     this.skin = new Image();
     this.skin.src = SKIN_PATH;
     this.bg.src = BACKGROUND_PATH;
-
+    this.roomState = roomState;
+    this.gameModeMultiplayer = true;
     this.bg.onload = () => {
       this.ctx.drawImage(
         this.bg,
@@ -23,8 +24,6 @@ export class Game {
         this.ctx.canvas.height,
       );
     };
-
-    this.player = new Player(100, 250, this.skin);
 
     this.renderer = new Renderer(ctx);
     this.hud = new Hud();
@@ -41,7 +40,7 @@ export class Game {
 
   start() {
     this.running = true;
-    this.player.reset();
+    this.roomState.players.forEach((player) => player.reset());
     this.score = 0;
     this.lastTime = null;
     this.hud.showScore();
@@ -51,7 +50,7 @@ export class Game {
   restart(startNewGame) {
     this.running = false;
     this.gameReady = startNewGame;
-    this.player.reset();
+    this.roomState.players.forEach((player) => player.reset());
     this.score = 0;
     this.pipes = [];
     this.renderer.clear();
@@ -60,15 +59,16 @@ export class Game {
   }
   loop() {
     this.update();
-    this.renderer.drawGame(this.pipes, this.player, this.bg);
+    this.renderer.drawGame(this.pipes, this.roomState.players, this.bg);
 
-    if (this.renderer.checkCollision(this.pipes, this.player)) {
-      this.running = false;
-      this.gameReady = false;
-      this.onGameEndCallback();
-      return;
+    if (this.roomState.players.length === 1) {
+      if (this.renderer.checkCollision(this.pipes, this.roomState.players[0])) {
+        this.running = false;
+        this.gameReady = false;
+        this.onGameEndCallback();
+        return;
+      }
     }
-
     if (!this.running) return;
 
     requestAnimationFrame(() => this.loop());
@@ -82,8 +82,7 @@ export class Game {
     const deltaTime = timeStamp - this.lastTime;
 
     this.lastTime = timeStamp;
-
-    this.player.update(deltaTime);
+    this.roomState.players.forEach((player) => player.update(deltaTime));
 
     if (this.pipes.length === 0 || this.pipes[this.pipes.length - 1].x < 200) {
       this.pipes.push(
@@ -100,7 +99,8 @@ export class Game {
 
     for (const pipe of this.pipes) {
       if (
-        pipe.x + pipe.pipeWidth < this.player.x + this.player.playerWidth &&
+        pipe.x + pipe.pipeWidth <
+          this.roomState.players[0].x + this.roomState.players[0].playerWidth &&
         !pipe.isRecorded
       ) {
         pipe.isRecorded = true;

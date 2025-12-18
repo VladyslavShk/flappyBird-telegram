@@ -1,5 +1,3 @@
-import { GameSockets } from "../net/socket.js";
-
 export class Menu {
   constructor() {
     this.menuDiv = document.getElementById("menu");
@@ -19,10 +17,10 @@ export class Menu {
       state: "searching",
     };
 
-    GameSockets.setConnection("http://localhost:3000");
-    GameSockets.onSearchRoomUpdate((room) => {
-      this.room = room;
-    });
+    // GameSockets.setConnection("http://localhost:3000");
+    // GameSockets.onSearchRoomUpdate((room) => {
+    // this.room = room;
+    // });
     this.onStartCallback = () => {};
 
     this.startBtn.onclick = () => {
@@ -42,7 +40,8 @@ export class Menu {
     };
 
     this.startMultBtn.onclick = () => {
-      GameSockets.findRoom();
+      this.hideGameEndMenu();
+      this.onMultiplayerStart();
     };
   }
 

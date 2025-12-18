@@ -7,6 +7,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 @font-face {
   font-family: "FB_Regular"; /* 👈 you choose this name */
   src: url("assets/fonts/FB_Regular.ttf") format("truetype");
@@ -44,6 +45,35 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 10;
+}
+
+#waitWindow {
+  background-color: yellow;
+  position: fixed;
+  left: 50%;
+  top: 33%;
+  transform: translate(-50%);
+  z-index: 11;
+  min-width: 300px;
+  min-height: 300px;
+  border-radius: 10px;
+  transform: translateX(-50%); /* центрирование только по горизонтали */
+}
+#waitMain {
+  background-image: url("/assets/img/planet.png");
+  background-size: contain; /* заповнити весь div */
+  background-position: center; /* центровано */
+  background-repeat: no-repeat; /* без повтору */
+  min-height: 120px;
+  min-width: 120px;
+}
+#waitBottom {
+  display: flex;
+  justify-content: center;
+}
+#playerCardIco {
+  width: 70px;
+  height: 70px;
 }
 #loader {
   border: 16px solid #f3f3f3; /* Light grey */
@@ -114,4 +144,8 @@ button {
   border-radius: 6px;
   background: #fdd835;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }

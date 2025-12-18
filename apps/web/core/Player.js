@@ -1,5 +1,5 @@
 export class Player {
-  constructor(x, y, skin) {
+  constructor(pName, x, y, skin) {
     this.x = x;
     this.y = y;
     this.velocity = 0;
@@ -10,6 +10,8 @@ export class Player {
     this.playerWidth = 40;
     this.playerHeight = 20;
     this.skin = skin;
+    this.name = pName;
+    this.isMe = true;
   }
 
   update(deltaTime) {

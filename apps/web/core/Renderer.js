@@ -7,7 +7,7 @@ export class Renderer {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 
-  drawGame(pipes, player, bg) {
+  drawGame(pipes, players, bg) {
     this.clear();
 
     this.ctx.drawImage(bg, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -15,7 +15,7 @@ export class Renderer {
       pipe.draw(this.ctx);
     }
 
-    player.draw(this.ctx);
+    players.forEach((player) => player.draw(this.ctx));
   }
 
   checkCollision(pipes, player) {
